@@ -3,14 +3,16 @@ package com.kaibacorp.personapi.domain.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
+@Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 public class Person {
 
     @Id
@@ -23,14 +25,12 @@ public class Person {
     @Column(name = "Last_Name",nullable = false)
     private String lastName;
 
-    @Column(name = "CPF",nullable = false, unique = true)
+    @Column(name = "CPF", unique = true,nullable = false)
     private String cpf;
 
 
-    @Column(name = "Birth_Date",nullable = false)
     private LocalDate birthDate;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,
-            CascadeType.PERSIST,CascadeType.REMOVE})
-    private List<Phone> phone;
+    @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.REMOVE})
+    private List<Phone> phones;
 }
